@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const SideNav = () => {
     const [courseCategories, setCourseCategories] = useState([]);
@@ -13,7 +14,14 @@ const SideNav = () => {
     return (
         <div>
             <h4>All Courses Category : {courseCategories.length}</h4>
-        </div>
+            <div>
+                {
+                    courseCategories.map(courseCategory => <p key={courseCategory.id}>
+                        <Link to={`/category/${courseCategory.id}`}>{courseCategory.name}</Link>
+                    </p>)
+                }
+            </div>
+        </div >
     );
 };
 
