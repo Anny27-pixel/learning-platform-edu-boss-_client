@@ -1,11 +1,10 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { useLoaderData } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import './CourseCard.css';
 
-
-const Courses = () => {
-    const course = useLoaderData();
+const CourseCard = ({ course }) => {
     const { id, name, CourseBody, photoURL, price } = course;
     return (
         <Card style={{ width: '40rem' }} className=' mb-4'>
@@ -14,7 +13,10 @@ const Courses = () => {
                 <Card.Title>{name}</Card.Title>
                 <Card.Text>
                     {
-                        CourseBody
+                        CourseBody.length > 250 ?
+                            <p>{CourseBody.slice(0, 250) + '...'} <Link to={`/courses/${id}`}>Read More</Link></p>
+                            :
+                            <p>{CourseBody}</p>
                     }
                 </Card.Text>
                 <p>Price : $ {price}</p>
@@ -24,4 +26,4 @@ const Courses = () => {
     );
 };
 
-export default Courses;
+export default CourseCard;
