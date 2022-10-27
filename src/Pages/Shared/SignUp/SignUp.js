@@ -3,8 +3,22 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { FaGoogle, FaGithub } from "react-icons/fa";
+import { useContext } from 'react';
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
 const SignUp = () => {
 
+    const { providerLogin } = useContext(AuthContext);
+    const googleProvider = new GoogleAuthProvider()
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(e => console.error(e))
+    }
 
     return (
         <div>
@@ -37,9 +51,9 @@ const SignUp = () => {
 
             <hr />
 
-            <ButtonGroup vertical>
-                <Button variant='outline-primary'>Login with Google</Button>
-                <Button variant='outline-dark'>Login with Github</Button>
+            <ButtonGroup className='d-flex' vertical>
+                <Button onClick={handleGoogleSignIn} className='mb-3' variant='outline-primary'><FaGoogle></FaGoogle> Login with Google</Button>
+                <Button variant='outline-dark'><FaGithub></FaGithub>  Login with Github</Button>
             </ButtonGroup>
         </div >
 

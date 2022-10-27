@@ -14,17 +14,17 @@ export const routes = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>,
-                loader: () => fetch('http://localhost:5000/courses')
+                loader: () => fetch('https://edu-boss-server.vercel.app/courses')
             },
             {
                 path: '/category',
                 element: <Category></Category>,
-                loader: ({ params }) => fetch('http://localhost:5000/courses-categories')
+                loader: ({ params }) => fetch('https://edu-boss-server.vercel.app/courses')
             },
             {
                 path: '/courses/:id',
                 element: <Courses></Courses>,
-                loader: ({ params }) => fetch(`http://localhost:5000/courses/${params.id}`)
+                loader: ({ params }) => fetch(`https://edu-boss-server.vercel.app/courses/${params.id}`)
             },
 
             {
