@@ -10,7 +10,13 @@ import { FaUser } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const Header = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(e => console.error(e));
+
+    }
     return (
         <Navbar className='mb-4' collapseOnSelect expand="lg" bg="light" variant="light">
             <Container>
@@ -32,7 +38,7 @@ const Header = () => {
                                 user?.uid ?
                                     <>
                                         <span>{user?.displayName}</span>
-                                        <button>Logout</button>
+                                        <button onClick={handleLogOut}>Logout</button>
                                     </>
                                     :
                                     <>
@@ -42,7 +48,10 @@ const Header = () => {
                             }
                         </Nav.Link>
                         <Nav.Link eventKey={2} href="#memes">
-
+                            user?.photoURL?
+                            <Image style={{ height: '30px' }} roundedCircle src={user.photoURL}></Image>
+                            :
+                            <FaUser></FaUser>
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
