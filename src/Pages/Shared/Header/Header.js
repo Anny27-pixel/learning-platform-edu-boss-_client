@@ -29,7 +29,7 @@ const Header = () => {
 
                         <Nav.Link eventKey={2} href="#deets">
                             {
-                                user.uid ?
+                                user?.uid ?
                                     <>
                                         <span>{user?.displayName}</span>
                                         <button>Logout</button>
