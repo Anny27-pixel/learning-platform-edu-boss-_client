@@ -9,7 +9,7 @@ import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
 const SignUp = () => {
 
-    const { providerLogin } = useContext(AuthContext);
+    const { providerLogin, createUser } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider()
     const handleGoogleSignIn = () => {
         providerLogin(googleProvider)
@@ -19,30 +19,44 @@ const SignUp = () => {
             })
             .catch(e => console.error(e))
     }
+    const handleSubmit = event => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const photoURL = form.photoURL.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(email, password, name, photoURL);
 
+        createUser(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(e => console.error(e));
+
+    }
     return (
         <div>
-            <Form >
+            <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" >
                     <Form.Label>Full Name</Form.Label>
-                    <Form.Control type="name" placeholder="Enter name" />
+                    <Form.Control name='name' type="name" placeholder="Enter name" />
                 </Form.Group>
                 <Form.Group className="mb-3" >
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Control name='email' type="email" placeholder="Enter email" required />
                 </Form.Group>
                 <Form.Group className="mb-3" >
                     <Form.Label>Photo URL</Form.Label>
-                    <Form.Control type="text" placeholder="Enter photo url" />
+                    <Form.Control name='photoURL' type="text" placeholder="Enter photo url" />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control name='password' type="password" placeholder="Password" required />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group>
+
                 <Button variant="primary" type="submit">
                     Sign Up
                 </Button>
