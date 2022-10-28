@@ -9,6 +9,7 @@ const ref = React.createRef();
 
 const GeneratePdf = () => {
     const course = useLoaderData();
+
     const { name, CourseBody, photoURL, price } = course;
     return (
         <div >

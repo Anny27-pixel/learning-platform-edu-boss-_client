@@ -4,8 +4,10 @@ import Course from "../../Pages/Course/Course/Course";
 import Courses from "../../Pages/Courses/Courses/Courses";
 import Home from "../../Pages/Home/Home/Home";
 import Blog from "../../Pages/Shared/Blog/Blog";
+import CheckOut from "../../Pages/Shared/CheckOut/CheckOut";
 import Login from "../../Pages/Shared/Login/Login";
 import SignUp from "../../Pages/Shared/SignUp/SignUp";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const routes = createBrowserRouter([
     {
@@ -38,6 +40,11 @@ export const routes = createBrowserRouter([
             }, {
                 path: '/blogs',
                 element: <Blog></Blog>
+            },
+            {
+                path: '/checkout',
+                element: <PrivateRoute> <CheckOut></CheckOut></PrivateRoute>,
+                loader: ({ params }) => fetch(`https://edu-boss-server.vercel.app/courses/${params.id}`)
             }
         ]
     }

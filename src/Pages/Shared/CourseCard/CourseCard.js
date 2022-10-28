@@ -20,7 +20,7 @@ const CourseCard = ({ course }) => {
                     }
                 </Card.Text>
                 <p>Price : $ {price}</p>
-                <Button variant="primary">Get premium access</Button>
+                <Link to='/checkout'><Button variant="primary" >Get premium access</Button></Link>
             </Card.Body>
         </Card>
     );
