@@ -9,7 +9,7 @@ import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
 const SignUp = () => {
 
-    const { providerLogin, createUser } = useContext(AuthContext);
+    const { providerLogin } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider()
     const handleGoogleSignIn = () => {
         providerLogin(googleProvider)
@@ -17,29 +17,29 @@ const SignUp = () => {
                 const user = result.user;
                 console.log(user);
             })
-            .catch(e => console.error(e))
-    }
-    const handleSubmit = event => {
-        event.preventDefault();
-        const form = event.target;
-        const name = form.name.value;
-        const photoURL = form.photoURL.value;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email, password, name, photoURL);
-
-        createUser(email, password)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                form.reset();
-            })
             .catch(e => console.error(e));
-
     }
+    // const handleSubmit = event => {
+    //     event.preventDefault();
+    //     const form = event.target;
+    //     const name = form.name.value;
+    //     const photoURL = form.photoURL.value;
+    //     const email = form.email.value;
+    //     const password = form.password.value;
+    //     console.log(email, password, name, photoURL);
+
+    //     createUser(email, password)
+    //         .then(result => {
+    //             const user = result.user;
+    //             console.log(user);
+    //             form.reset();
+    //         })
+    //         .catch(e => console.error(e));
+
+    // }
     return (
         <div>
-            <Form onSubmit={handleSubmit}>
+            <Form >
                 <Form.Group className="mb-3" >
                     <Form.Label>Full Name</Form.Label>
                     <Form.Control name='name' type="name" placeholder="Enter name" />
@@ -62,7 +62,7 @@ const SignUp = () => {
                     Sign Up
                 </Button>
             </Form>
-            <p>Already have an Account ? <Link t0='/login'>Login</Link></p>
+            <p>Already have an Account ? <Link to='/login'>LogIn</Link></p>
 
             <hr />
 

@@ -7,6 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { FaUser, FaBook } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
 const Header = () => {
@@ -31,8 +32,6 @@ const Header = () => {
 
                     </Nav>
                     <Nav>
-                        <Nav.Link href="/login">Login</Nav.Link>
-                        <Nav.Link href="/signup">Sign Up</Nav.Link>
 
                         <Nav.Link eventKey={2} href="#deets">
                             {
@@ -43,12 +42,17 @@ const Header = () => {
                                     </>
                                     :
                                     <>
-                                        {user}
+                                        <Link to='/login'>LogIn</Link>
+                                        <Link to='/signup'>Sign Up</Link>
                                     </>
                             }
                         </Nav.Link>
                         <Nav.Link eventKey={2} href="#memes">
-
+                            {user?.photoURL ?
+                                <Image style={{ height: '30px' }} roundedCircle src={user.photoURL}></Image>
+                                :
+                                <FaUser></FaUser>
+                            }
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

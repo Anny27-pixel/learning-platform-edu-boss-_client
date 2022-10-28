@@ -34,8 +34,11 @@ const GeneratePdf = () => {
                             <Button variant='primary'>All Courses</Button>
                         </Link>
                     </Card.Body>
+
                 </Card>
+
             </div>
+
         </div>
     );
 };
