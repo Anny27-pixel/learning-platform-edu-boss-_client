@@ -1,26 +1,19 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import { useLoaderData } from 'react-router-dom';
-
+import CourseCard from '../../Shared/CourseCard/CourseCard';
 
 const Courses = () => {
-    const course = useLoaderData();
-    const { id, name, CourseBody, photoURL, price } = course;
+    const courses = useLoaderData();
     return (
-        <Card style={{ width: '40rem' }} className=' mb-4'>
-            <Card.Img variant="top" src={photoURL} />
-            <Card.Body>
-                <Card.Title>{name}</Card.Title>
-                <Card.Text>
-                    {
-                        CourseBody
-                    }
-                </Card.Text>
-                <p>Price : $ {price}</p>
-                <Button variant="primary">Get premium access</Button>
-            </Card.Body>
-        </Card>
+        <div>
+            <h2>All Courses </h2>
+            {
+                courses.map(course => <CourseCard
+                    key={course.id}
+                    course={course}
+                ></CourseCard>)
+            }
+        </div>
     );
 };
 
