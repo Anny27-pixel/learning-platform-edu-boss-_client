@@ -7,9 +7,11 @@ import { FaGoogle, FaGithub } from "react-icons/fa";
 import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
+import { useState } from 'react';
 const SignUp = () => {
+    const [error, setError] = useState('');
 
-    const { providerLogin } = useContext(AuthContext);
+    const { providerLogin, createUser } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider()
     const handleGoogleSignIn = () => {
         providerLogin(googleProvider)
@@ -19,27 +21,31 @@ const SignUp = () => {
             })
             .catch(e => console.error(e));
     }
-    // const handleSubmit = event => {
-    //     event.preventDefault();
-    //     const form = event.target;
-    //     const name = form.name.value;
-    //     const photoURL = form.photoURL.value;
-    //     const email = form.email.value;
-    //     const password = form.password.value;
-    //     console.log(email, password, name, photoURL);
+    const handleSubmit = event => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const photoURL = form.photoURL.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(email, password, name, photoURL);
 
-    //     createUser(email, password)
-    //         .then(result => {
-    //             const user = result.user;
-    //             console.log(user);
-    //             form.reset();
-    //         })
-    //         .catch(e => console.error(e));
+        createUser(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                setError('');
+                form.reset();
+            })
+            .catch(error => {
+                console.error(error);
+                setError(error.message);
+            });
 
-    // }
+    }
     return (
         <div>
-            <Form >
+            <Form onSubmit={handleSubmit} >
                 <Form.Group className="mb-3" >
                     <Form.Label>Full Name</Form.Label>
                     <Form.Control name='name' type="name" placeholder="Enter name" />
@@ -61,6 +67,7 @@ const SignUp = () => {
                 <Button variant="primary" type="submit">
                     Sign Up
                 </Button>
+                <Form.Text className='text-danger'>{error}</Form.Text>
             </Form>
             <p>Already have an Account ? <Link to='/login'>LogIn</Link></p>
 
